@@ -7,7 +7,6 @@ import streamlit as st
 import random
 import requests
 import time
-from daily_rate_page_NEW import display_tjm_calculator
 
 BASE_URL = "https://leadcraftr-api-cloud-623673804405.europe-west1.run.app"
 
@@ -132,7 +131,6 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="collapsed"
 )
-
 
 # ====== SESSION INITIALISATION ======
 if "page" not in st.session_state:
@@ -345,6 +343,26 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
+
+# --- TJM Calculator Function ---
+def display_tjm_calculator():
+    st.markdown("### 📊 Calculate your Daily Rate (TJM)")
+    with st.form("tjm_form_standalone"):
+        # Default values for TJM calculator from session state if available, else 0/20/20
+        monthly_income_val = st.session_state.user_profile_data.get('desired_monthly_income', 0) if st.session_state.user_profile_data.get('user_type') == 'freelancer' else 0
+        work_days_val = st.session_state.user_profile_data.get('work_days_per_month', 20) if st.session_state.user_profile_data.get('user_type') == 'freelancer' else 20
+        buffer_val = st.session_state.user_profile_data.get('safety_buffer', 20) if st.session_state.user_profile_data.get('user_type') == 'freelancer' else 20
+
+        monthly_income = st.number_input("💰 Desired monthly income (£)", min_value=0, value=monthly_income_val, key="monthly_income_tjm_standalone")
+        work_days = st.slider("📅 Number of working days per month", 10, 30, value=work_days_val, key="work_days_tjm_standalone")
+        buffer = st.slider("🔒 Safety buffer (%)", 0, 100, value=buffer_val, key="buffer_tjm_standalone")
+        tjm_submitted = st.form_submit_button("📐 Calculate my Daily Rate")
+    if tjm_submitted and work_days > 0:
+        calculated_tjm = (monthly_income * (1 + buffer / 100)) / work_days
+        st.session_state.freelancer_tjm = calculated_tjm # Store TJM
+        st.success(f"💡 Your recommended Daily Rate is **£{calculated_tjm:.2f} / day**")
+    elif st.session_state.freelancer_tjm: # If TJM already calculated in session, display it
+        st.info(f"💡 Your last calculated Daily Rate is **£{st.session_state.freelancer_tjm:.2f} / day**")
 
 
 # ====== PAGE CONTENT RENDERING ======
