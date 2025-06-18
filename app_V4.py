@@ -485,8 +485,8 @@ if st.session_state.page == "🏠 Home":
                     matches = get_matches(statement, user_type="freelancer")
                     st.session_state.freelancer_matches = matches[:10]
 
-                    for i in range(1, 21):
-                        progress = i / 20
+                    for i in range(1, 11):
+                        progress = i / 10
                         progress_bar_placeholder.progress(progress)
                         progress_text_placeholder.text(f"Finding companies... {i}/10")
                         time.sleep(0.05)
@@ -666,8 +666,8 @@ if st.session_state.page == "🏠 Home":
                     results = get_matches(mission, user_type="company")
                     st.session_state.company_matches = results[:10]
 
-                    for i in range(1, 21):
-                        progress = i / 20
+                    for i in range(1, 11):
+                        progress = i / 10
                         progress_bar_placeholder.progress(progress)
                         progress_text_placeholder.text(f"Finding freelancers... {i}/10")
                         time.sleep(0.05)
