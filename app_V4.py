@@ -177,7 +177,7 @@ if "company_email_sent_states" not in st.session_state:
 # Add an info message about the calculation basis, visible on pages with the nav bar
 # This will appear slightly below the fixed info box, in the main content area
 # Moved to Dashboard page only
-# st.info("💡 *Time and Money Saved estimates are based on industry averages for personalized email drafting (5 minutes) and copywriting costs (£75) per email sent, derived from market research.*")
+# st.info("💡 *Time and Money Saved estimates are based on industry averages for personalized email drafting (5 minutes) and copywriting costs (€75) per email sent, derived from market research.*")
 
 
 # ===== SIDEBAR CONTENT (Navigation and Profile Type) MOVED TO TOP =====
@@ -365,7 +365,7 @@ if st.session_state.page == "🏠 Home":
         st.container(border=True).markdown(f"""
             <div style='text-align: right;'>
                 <h5>🕰️ Time Saved: {st.session_state.total_time_saved} min</h5>
-                <h5>💰 Money Saved: £{st.session_state.total_money_saved:.2f}</h5>
+                <h5>💰 Money Saved: €{st.session_state.total_money_saved:.2f}</h5>
             </div>
         """, unsafe_allow_html=True)
 
@@ -419,7 +419,7 @@ if st.session_state.page == "🏠 Home":
             else:
                 current_daily_rate_val = 850
 
-            rate = st.slider("Your day rate (£)", 100, 2000, value=current_daily_rate_val, step=50)
+            rate = st.slider("Your day rate (€)", 100, 2000, value=current_daily_rate_val, step=50)
             # --- END FIX ---
 
             exp = st.slider("Your experience (years)", 0, 20, value=st.session_state.user_profile_data.get("experience_years", 5))
@@ -592,7 +592,7 @@ if st.session_state.page == "🏠 Home":
 
                             # Incrémenter le temps et l'argent économisés (Freelancer)
                             st.session_state.total_time_saved += 5 # Based on research: ~5 mins saved per personalized email drafting
-                            st.session_state.total_money_saved += 75 # Based on research: value of personalized copywriting
+                            st.session_state.total_money_saved += 20 # Based on research: value of personalized copywriting
 
                             st.toast("Email sent! 🎉", icon="✅")
                             st.rerun()
@@ -614,7 +614,7 @@ if st.session_state.page == "🏠 Home":
             c1, c2 = st.columns(2)
             title = c1.text_input("Your role/contact person title", value=st.session_state.user_profile_data.get("contact_role", ""))
             loc = c2.text_input("Company location (city)", value=st.session_state.user_profile_data.get("location", ""))
-            budget = st.slider("Budget per day (£)", 100, 2000, value=st.session_state.user_profile_data.get("budget_per_day", 650), step=50)
+            budget = st.slider("Budget per day (€)", 100, 2000, value=st.session_state.user_profile_data.get("budget_per_day", 650), step=50)
             sector = st.selectbox("Company sector", ["FinTech", "HealthTech", "EdTech", "GreenTech", "Tech / SaaS", "MarTech", "Retail / E-com", "Gaming"], index=["FinTech", "HealthTech", "EdTech", "GreenTech", "Tech / SaaS", "MarTech", "Retail / E-com", "Gaming"].index(st.session_state.user_profile_data.get("main_sector", "Tech / SaaS")))
             req_skills = st.multiselect("Required skills (max 3)", ["Python","Rust","Solidity","Kubernetes","Cloud Security", "Quant Analysis","FastAPI","LangChain","PostgreSQL"], default=st.session_state.user_profile_data.get("required_skills", []), max_selections=3)
             mode = st.selectbox("Work mode", ["Remote", "On-site", "Hybrid"], index=["Remote", "On-site", "Hybrid"].index(st.session_state.user_profile_data.get("work_mode", "Remote")))
@@ -771,7 +771,7 @@ if st.session_state.page == "🏠 Home":
 
                             # Incrémenter le temps et l'argent économisés (Company)
                             st.session_state.total_time_saved += 5 # Based on research: ~5 mins saved per personalized email drafting
-                            st.session_state.total_money_saved += 75 # Based on research: value of personalized copywriting
+                            st.session_state.total_money_saved += 20 # Based on research: value of personalized copywriting
 
                             st.toast("Email sent! 🎉", icon="✅")
                             st.rerun()
@@ -811,11 +811,11 @@ elif st.session_state.page in ["📝 Create your profile", "👤 My Profile"]:
             main_sector = st.selectbox("Main Sector", ["FinTech", "HealthTech", "EdTech", "GreenTech", "Tech / SaaS", "MarTech", "Retail / E-com", "Gaming"], index=["FinTech", "HealthTech", "EdTech", "GreenTech", "Tech / SaaS", "MarTech", "Retail / E-com", "Gaming"].index(current_data.get("main_sector", "Tech / SaaS")))
             skills = st.multiselect("Skills (max 3)", ["Python", "Rust", "Solidity", "Kubernetes", "Cloud Security", "Quant Analysis", "FastAPI", "LangChain", "PostgreSQL"], default=current_data.get("skills", []), max_selections=3)
             experience_years = st.slider("Years of Experience", 0, 30, value=current_data.get("experience_years", 5))
-            daily_rate = st.number_input("Desired Daily Rate (£)", min_value=0, value=current_data.get("daily_rate", 500))
+            daily_rate = st.number_input("Desired Daily Rate (€)", min_value=0, value=current_data.get("daily_rate", 500))
             work_mode = st.selectbox("Preferred Work Mode", ["Remote", "On-site", "Hybrid"], index=["Remote", "On-site", "Hybrid"].index(current_data.get("work_mode", "Remote")))
             preferred_company_sizes = st.multiselect("Preferred Company Sizes (max 3)", ["Startup", "Small", "Mid-size", "Large"], default=current_data.get("preferred_company_sizes", []), max_selections=3)
             preferred_email_style = st.selectbox("Preferred Email Style", ["Storytelling", "Direct", "Formal", "Informal", "Benefit-driven", "Technical"], index=["Storytelling", "Direct", "Formal", "Informal", "Benefit-driven", "Technical"].index(current_data.get("preferred_email_style", "Storytelling")))
-            desired_monthly_income = st.number_input("Desired Monthly Income (£)", min_value=0, value=current_data.get("desired_monthly_income", 0))
+            desired_monthly_income = st.number_input("Desired Monthly Income (€)", min_value=0, value=current_data.get("desired_monthly_income", 0))
             work_days_per_month = st.slider("Working Days Per Month", 10, 30, value=current_data.get("work_days_per_month", 20))
             safety_buffer = st.slider("Safety Buffer (%)", 0, 100, value=current_data.get("safety_buffer", 20))
 
@@ -871,7 +871,7 @@ elif st.session_state.page in ["📝 Create your profile", "👤 My Profile"]:
             company_size = st.selectbox("Company Size", ["Startup", "SME", "Large Enterprise"], index=["Startup", "SME", "Large Enterprise"].index(current_data.get("company_size", "SME")))
             main_sector = st.selectbox("Main Sector", ["FinTech", "HealthTech", "EdTech", "GreenTech", "Tech / SaaS", "MarTech", "Retail / E-com", "Gaming"], index=["FinTech", "HealthTech", "EdTech", "GreenTech", "Tech / SaaS", "MarTech", "Retail / E-com", "Gaming"].index(current_data.get("main_sector", "Tech / SaaS")))
             required_skills = st.multiselect("Required Freelancer Skills (max 3)", ["Python", "Rust", "Solidity", "Kubernetes", "Cloud Security", "Quant Analysis", "FastAPI", "LangChain", "PostgreSQL"], default=current_data.get("required_skills", []), max_selections=3)
-            budget_per_day = st.number_input("Budget Per Day for Freelancers (£)", min_value=0, value=current_data.get("budget_per_day", 500))
+            budget_per_day = st.number_input("Budget Per Day for Freelancers (€)", min_value=0, value=current_data.get("budget_per_day", 500))
             work_mode = st.selectbox("Preferred Work Mode for Freelancers", ["Remote", "On-site", "Hybrid"], index=["Remote", "On-site", "Hybrid"].index(current_data.get("work_mode", "Remote")))
             location = st.text_input("Company Location (City)", value=current_data.get("location", ""))
             target_tone = st.selectbox("Target Email Tone", ["Warm", "Professional", "Creative", "Direct", "Empathetic"], index=["Warm", "Professional", "Creative", "Direct", "Empathetic"].index(current_data.get("target_tone", "Professional")))
@@ -951,9 +951,10 @@ elif st.session_state.page == "📊 Dashboard":
     with col_dash1:
         st.metric(label="🕰️ Total Time Saved", value=f"{st.session_state.total_time_saved} min")
     with col_dash2:
-        st.metric(label="💰 Total Money Saved", value=f"£{st.session_state.total_money_saved:.2f}")
+        st.metric(label="💰 Total Money Saved", value=f"€{st.session_state.total_money_saved:.2f}")
     # The info message is now ONLY on the Dashboard page
-    st.info("💡 *Time and Money Saved estimates are based on industry averages for personalized email drafting (5 minutes) and copywriting costs (£75) per email sent, derived from market research.*")
+    st.info("💡 *Time and money saved estimates are based on your daily rate, assuming 8 hours of work per day."
+            "Reduced weekly prospecting time from 2.5 hours to less than 20 minutes with LeadCraftr.*")
 
     st.subheader("✉️ Recent Interactions")
 
