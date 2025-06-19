@@ -1,7 +1,7 @@
 
 """daily_rate_page_NEW.py
 
-Full‑featured Daily‑Rate (TJM) calculator page for LeadCraftr.
+Full‑featured Daily‑Rate calculator page for LeadCraftr.
 
 Drop this file next to **app_V4.py** and add, near the top of *app_V4.py*:
 
@@ -136,7 +136,7 @@ def display_tjm_calculator():
         st.warning("This tool is designed for freelancers. Switch to freelancer mode in your profile settings.")
         return
 
-    st.markdown("## 💰 Daily‑Rate (TJM) Calculator")
+    st.markdown("## 💰 Daily‑Rate Calculator")
     st.markdown("Calculate your optimal daily rate based on your experience, skills, and market conditions.")
 
     with st.form("rate_calculator_full", clear_on_submit=False):
@@ -191,7 +191,8 @@ def display_tjm_calculator():
         tjm = _calculate_rate(years_experience, skill_level, specialization,
                               location_type, market_location, industry,
                               certifications, education, demand_level,
-                              business_impact, urgency_premium,
+                              business_impact,
+                              urgency_premium,
                               client_size, portfolio_strength)
 
         st.session_state["freelancer_tjm"] = tjm
@@ -204,9 +205,9 @@ def display_tjm_calculator():
         st.markdown("---")
         st.markdown("### 📊 Your Calculated Rate")
         st.metric("Recommended Daily Rate", f"€{tjm}")
-        st.metric("Monthly (20 d)", f"€{tjm * 20:,}")
-        st.metric("Yearly (11 m)", f"€{tjm * 20 * 11:,}")
-        st.caption("*Figures assume 20 billable days/month & 11 working months/year.*")
+        st.metric("Monthly (14 d)", f"€{tjm * 14:,}")
+        st.metric("Yearly (12 m)", f"€{tjm * 14 * 12:,}")
+        st.caption("*Figures assume 14 billable days/month in average & 12 working months/year.*")
 
          # Rate range recommendation
         st.markdown("### 💡 Rate Range Recommendation")
